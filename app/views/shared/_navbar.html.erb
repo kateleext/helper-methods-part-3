@@ -4,7 +4,13 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
         <%=link_to "Movies", movies_path, class: "nav-link active"%>
-        <%=link_to "New", new_movie_path, class: "nav-link active"%>
+        
+        <%if user_signed_in?%>
+          <%=link_to "Sign out", destroy_user_session_path, class: "nav-link active", data: {turbo_method: :delete}%>
+          <%=link_to "#{current_user.first_name} #{current_user.last_name}", edit_user_registration_path(current_user), class: "nav-link active"%>
+        <%else%>
+          <%=link_to "Log in", new_user_session_path, class: "nav-link active"%>
+          <%=link_to "Sign up", new_user_registration_path, class: "nav-link active"%>
+        <%end%>
     </nav>
